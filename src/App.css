@@ -1,10 +1,11 @@
-.App {
-  text-align: center;
-}
+.main {
+  /* font-size: 16px; */
+  position: absolute;
+  width: 1920px;
+  height: 1010px;
+  left: 0px;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  background: rgba(235, 235, 235, 0.7);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -34,5 +35,12 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .main {
+    width: 100%;
+    min-width: 353px;
   }
 }
