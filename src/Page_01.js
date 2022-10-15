@@ -10,6 +10,9 @@ const NameBirth = styled.div`
   width: 152px;
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 20px;
   @media screen and (max-width: 650px) {
     width: 186px;
   }
@@ -30,11 +33,24 @@ const ListBox = styled.div`
   }
 `;
 
+const Label = styled.label`
+  display: inline-block;
+  width: 250px;
+  text-align: right;
+  height: 38px;
+  cursor: pointer;
+  @media screen and (max-width: 650px) {
+    width: 353px;
+  }
+`;
+
 const CheckBox = styled.input`
   width: 12px;
   height: 12px;
   margin: 0px;
   accent-color: #4130be;
+  margin-top: 13px;
+  margin-right: 20px;
 `;
 
 const ArrowImg = styled.img`
@@ -105,29 +121,33 @@ function Page_01() {
           <CardList hgt="397px" mh="244px">
             {state &&
               state.user.map((a, i) => (
-                <div key={a.name}>
-                  <Card
+                <>
+                  <div
+                    key={a.name}
                     style={{
                       background: a.checked && "rgba(65, 48, 190, 0.3)",
                       color: a.checked && "#4130BE",
                     }}
                   >
-                    <NameBirth>
-                      <span>{a.name}</span>
-                      <span style={{ width: "63px" }}>
-                        {a.date.substring(0, 10).replace(/-/g, ".")}
-                      </span>
-                    </NameBirth>
-                    <CheckBox
-                      type="checkbox"
-                      defaultChecked={a.checked}
-                      onChange={() => {
-                        change(a.name);
-                      }}
-                    />
-                  </Card>
+                    <Label for={a.name}>
+                      <NameBirth>
+                        <span>{a.name}</span>
+                        <span style={{ width: "63px" }}>
+                          {a.date.substring(0, 10).replace(/-/g, ".")}
+                        </span>
+                      </NameBirth>
+                      <CheckBox
+                        id={a.name}
+                        type="checkbox"
+                        defaultChecked={a.checked}
+                        onChange={() => {
+                          change(a.name);
+                        }}
+                      />
+                    </Label>
+                  </div>
                   <CardBorder></CardBorder>
-                </div>
+                </>
               ))}
           </CardList>
         </List>
