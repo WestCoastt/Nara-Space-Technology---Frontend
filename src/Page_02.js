@@ -7,25 +7,37 @@ import { selectUser } from "./store";
 
 const CardOuter = styled.div`
   background: ${(props) => props.bg};
+  color: ${(props) => props.clr};
   &:hover {
     cursor: pointer;
   }
 `;
 
+const ListBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 260px;
+  width: 622px;
+  height: 490px;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: column-reverse;
+    width: 352px;
+    height: 637px;
+    margin-top: 67px;
+  }
+`;
+
 const Profile = styled.div`
-  position: absolute;
+  position: relative;
   width: 352px;
   height: 425px;
-  left: 919px;
-  top: 330px;
   background: #ffffff;
   border-radius: 3px;
 
   @media screen and (max-width: 650px) {
-    position: relative;
-    margin: auto;
-    left: 0;
-    top: 20px;
+    height: 383px;
   }
 `;
 
@@ -46,6 +58,9 @@ const Picture = styled.div`
   height: 180px;
   background: #ffffff url(${(props) => props.img});
   border-radius: 100px;
+  @media screen and (max-width: 650px) {
+    top: 30px;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -55,6 +70,9 @@ const UserInfo = styled.div`
   width: 302px;
   height: 97px;
   font-size: 15px;
+  @media screen and (max-width: 650px) {
+    top: 240px;
+  }
 `;
 
 const Name = styled.div`
@@ -99,76 +117,80 @@ function Page_02() {
 
   return (
     <div className="main">
-      <Profile>
-        <ProfileBG></ProfileBG>
-        <Picture />
-        <Picture
-          img={
-            state.selected
-              ? state.selected.image === ""
-                ? "/assets/default.png"
-                : "/assets/" + state.selected.image
-              : null
-          }
-        />
-        <UserInfo>
-          <Name>
-            <Title>이름</Title>
-            <span style={{ marginLeft: "63px" }}>
-              {state.selected ? state.selected.name : null}
-            </span>
-          </Name>
-          <Border />
-          <Birth>
-            <Title>생년월일</Title>
-            <span style={{ width: "63px", marginLeft: "37px" }}>
-              {state.selected.date
-                ? state.selected.date.substring(0, 10).replace(/-/g, ".")
-                : null}
-            </span>
-          </Birth>
-          <Border />
-          <Comment>
-            <Title>한마디</Title>
-            <span style={{ marginLeft: "50px" }}>
-              {state.selected ? state.selected.comment : null}
-            </span>
-          </Comment>
-        </UserInfo>
-      </Profile>
-
-      <List left="649px" hgt="425px" mw="353px" mt="0" ml="20px" mh="254px">
-        <ListHeader mbg="rgba(65, 48, 190, 0.6)">
-          <FilterComponent />
-          <NameBox mclr="#ffffff" mfw="500">
-            <p style={{ marginRight: "83px" }}>이름</p>
-            <p>생년월일</p>
-          </NameBox>
-        </ListHeader>
-        <CardList hgt="304px" mh="190px">
-          {checked.map((a, i) => (
-            <CardOuter
-              key={a.comment}
-              bg={
-                state.selected &&
-                state.selected.name === a.name &&
-                "rgba(65, 48, 190, 0.3)"
-              }
-              onClick={() => {
-                select(a);
-              }}
-            >
-              <Card wth="173px" mw="226px">
-                <span>{a.name}</span>
-                <span style={{ width: "63px" }}>
-                  {a.date.substring(0, 10).replace(/-/g, ".")}
-                </span>
-              </Card>
-              <CardBorder></CardBorder>
-            </CardOuter>
-          ))}
-        </CardList>
-      </List>
+      <ListBox>
+        <List left="649px" hgt="425px" mw="353px" ml="20px" mh="254px">
+          <ListHeader mbg="rgba(65, 48, 190, 0.6)">
+            <FilterComponent />
+            <NameBox mclr="#ffffff" mfw="500">
+              <p style={{ marginRight: "83px" }}>이름</p>
+              <p>생년월일</p>
+            </NameBox>
+          </ListHeader>
+          <CardList hgt="304px" mh="190px">
+            {checked.map((a, i) => (
+              <CardOuter
+                key={a.comment}
+                bg={
+                  state.selected &&
+                  state.selected.name === a.name &&
+                  "rgba(65, 48, 190, 0.3)"
+                }
+                clr={
+                  state.selected && state.selected.name === a.name && "#4130BE"
+                }
+                onClick={() => {
+                  select(a);
+                }}
+              >
+                <Card wth="173px" mw="226px">
+                  <span>{a.name}</span>
+                  <span style={{ width: "63px" }}>
+                    {a.date.substring(0, 10).replace(/-/g, ".")}
+                  </span>
+                </Card>
+                <CardBorder></CardBorder>
+              </CardOuter>
+            ))}
+          </CardList>
+        </List>
+        <Profile>
+          <ProfileBG></ProfileBG>
+          <Picture />
+          <Picture
+            img={
+              state.selected
+                ? state.selected.image === ""
+                  ? "/assets/default.png"
+                  : "/assets/" + state.selected.image
+                : null
+            }
+          />
+          <UserInfo>
+            <Name>
+              <Title>이름</Title>
+              <span style={{ marginLeft: "63px" }}>
+                {state.selected ? state.selected.name : null}
+              </span>
+            </Name>
+            <Border />
+            <Birth>
+              <Title>생년월일</Title>
+              <span style={{ width: "63px", marginLeft: "37px" }}>
+                {state.selected.date
+                  ? state.selected.date.substring(0, 10).replace(/-/g, ".")
+                  : null}
+              </span>
+            </Birth>
+            <Border />
+            <Comment>
+              <Title>한마디</Title>
+              <span style={{ marginLeft: "50px" }}>
+                {state.selected ? state.selected.comment : null}
+              </span>
+            </Comment>
+          </UserInfo>
+        </Profile>
+      </ListBox>
     </div>
   );
 }

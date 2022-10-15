@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
 const List = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   font-size: 15px;
   width: 250px;
   height: ${(props) => props.hgt || "490px"};
-  top: 330px;
-  left: ${(props) => props.left};
 
   background: #ffffff;
   border-radius: 3px;
@@ -18,7 +16,6 @@ const List = styled.div`
     width: ${(props) => props.mw};
     height: ${(props) => props.mh};
     top: ${(props) => props.mt};
-    // left: ${(props) => props.ml};
     margin: auto;
     left: 0;
   }
@@ -183,6 +180,10 @@ const CardBorder = styled.div`
   width: 210px;
   margin-left: 20px;
   border-bottom: 1px solid #ebebeb;
+
+  @media screen and (max-width: 650px) {
+    width: 313px;
+  }
 `;
 
 export {

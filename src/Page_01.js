@@ -15,22 +15,40 @@ const NameBirth = styled.div`
   }
 `;
 
+const ListBox = styled.div`
+  display: flex;
+  margin: auto;
+  margin-top: 260px;
+  width: 650px;
+  height: 490px;
+
+  @media screen and (max-width: 650px) {
+    flex-direction: column;
+    width: 393px;
+    height: 647px;
+    margin-top: 67px;
+  }
+`;
+
 const CheckBox = styled.input`
   width: 12px;
   height: 12px;
   margin: 0px;
+  accent-color: #4130be;
 `;
 
 const ArrowImg = styled.img`
-  position: absolute;
-  left: 935px;
-  top: 566px;
+  position: relative;
+  width: 56px;
+  height: 37px;
+  margin: auto;
   @media screen and (max-width: 650px) {
     position: relative;
     margin: auto;
-    left: 50%;
+    margin-top: 10px;
+    margin-bottom: 10px;
     width: 20px;
-    top: 44px;
+    height: 20px;
     transform: rotate(90deg);
   }
 `;
@@ -75,75 +93,78 @@ function Page_01() {
 
   return (
     <div className="main">
-      <List left="638px" mw="353px" mt="20px" ml="20px" mh="293px">
-        <ListHeader>
-          <FilterComponent />
-          <NameBox>
-            <p style={{ marginRight: "63px" }}>이름</p>
-            <p>생년월일</p>
-          </NameBox>
-        </ListHeader>
-        <CardList hgt="397px" mh="244px">
-          {state &&
-            state.user.map((a, i) => (
-              <div key={a.name}>
-                <Card
-                  style={{
-                    background: a.checked && "rgba(65, 48, 190, 0.3)",
-                  }}
-                >
-                  <NameBirth>
-                    <span>{a.name}</span>
-                    <span style={{ width: "63px" }}>
-                      {a.date.substring(0, 10).replace(/-/g, ".")}
-                    </span>
-                  </NameBirth>
-                  <CheckBox
-                    type="checkbox"
-                    defaultChecked={a.checked}
-                    onChange={() => {
-                      change(a.name);
+      <ListBox>
+        <List left="638px" mw="353px" ml="20px" mh="293px">
+          <ListHeader>
+            <FilterComponent />
+            <NameBox>
+              <p style={{ marginRight: "63px" }}>이름</p>
+              <p>생년월일</p>
+            </NameBox>
+          </ListHeader>
+          <CardList hgt="397px" mh="244px">
+            {state &&
+              state.user.map((a, i) => (
+                <div key={a.name}>
+                  <Card
+                    style={{
+                      background: a.checked && "rgba(65, 48, 190, 0.3)",
+                      color: a.checked && "#4130BE",
                     }}
-                  />
+                  >
+                    <NameBirth>
+                      <span>{a.name}</span>
+                      <span style={{ width: "63px" }}>
+                        {a.date.substring(0, 10).replace(/-/g, ".")}
+                      </span>
+                    </NameBirth>
+                    <CheckBox
+                      type="checkbox"
+                      defaultChecked={a.checked}
+                      onChange={() => {
+                        change(a.name);
+                      }}
+                    />
+                  </Card>
+                  <CardBorder></CardBorder>
+                </div>
+              ))}
+          </CardList>
+        </List>
+        <ArrowImg src={arrow} alt="arrow" />
+
+        <List left="1033px" mw="353px" ml="20px" mh="314px">
+          <ListHeader>
+            <FilterComponent />
+            <NameBox>
+              <p style={{ marginRight: "83px" }}>이름</p>
+              <p>생년월일</p>
+            </NameBox>
+          </ListHeader>
+          <CardList hgt="304px" mh="190px">
+            {checked.map((a, i) => (
+              <div key={a.comment}>
+                <Card wth="173px" mw="226px">
+                  <span>{a.name}</span>
+                  <span style={{ width: "63px" }}>
+                    {a.date.substring(0, 10).replace(/-/g, ".")}
+                  </span>
                 </Card>
                 <CardBorder></CardBorder>
               </div>
             ))}
-        </CardList>
-      </List>
-      <ArrowImg src={arrow} alt="arrow" />
-
-      <List left="1033px" mw="353px" mt="63px" ml="20px" mh="314px">
-        <ListHeader>
-          <FilterComponent />
-          <NameBox>
-            <p style={{ marginRight: "83px" }}>이름</p>
-            <p>생년월일</p>
-          </NameBox>
-        </ListHeader>
-        <CardList hgt="304px" mh="190px">
-          {checked.map((a, i) => (
-            <div key={a.comment}>
-              <Card wth="173px" mw="226px">
-                <span>{a.name}</span>
-                <span style={{ width: "63px" }}>
-                  {a.date.substring(0, 10).replace(/-/g, ".")}
-                </span>
-              </Card>
-              <CardBorder></CardBorder>
-            </div>
-          ))}
-        </CardList>
-        <Save>
-          <p
-            style={{ margin: "8px 0", color: "#FFFFFF" }}
-            // onClick={() => {
-            // }}
-          >
-            저장하기
-          </p>
-        </Save>
-      </List>
+          </CardList>
+          <Save>
+            <p
+              style={{ margin: "8px 0", color: "#FFFFFF" }}
+              // onClick={() => {
+              // }}
+            >
+              저장하기
+            </p>
+          </Save>
+        </List>
+      </ListBox>
     </div>
   );
 }
